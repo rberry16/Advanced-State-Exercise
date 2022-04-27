@@ -1,4 +1,5 @@
 import React from 'react'
+import {combineReducers} from '../state/reducer'
 
 export default function Quiz(props) {
   return (

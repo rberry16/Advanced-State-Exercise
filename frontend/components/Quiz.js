@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 
-import {combineReducers} from '../state/reducer'
-import { fetchQuiz, selectAnswer} from '../state/action-creators';
+import { fetchQuiz, selectAnswer, postAnswer, setMessage} from '../state/action-creators';
 
 const Quiz = (props) => {
-  const {quiz, selectedAnswer, fetchQuiz, selectAnswer} = props;
+  const {quiz, selectedAnswer, fetchQuiz, selectAnswer, postAnswer} = props;
+
 
   useEffect(() => {
     fetchQuiz();
   }, [])
 
-  const [selectedButton, setSelectedButton] = useState('a')
+  const [selectedButton, setSelectedButton] = useState('c')
+
+  const handleSubmit = () => {
+    postAnswer(selectedAnswer);
+    fetchQuiz();
+    setSelectedButton('c')
+  }
 
   const handleChoiceA = () => {
     selectAnswer({quiz_id: `${quiz.quiz.quiz_id}`, answer_id: `${quiz.quiz.answer_ids[0]}`});
@@ -32,22 +38,22 @@ const Quiz = (props) => {
             <h2>{quiz.quiz.question}</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
+            <div className={selectedButton !== 'a' ? 'answer' : 'answer selected'}>
                 {quiz.quiz.answers[0].text}
                 <button onClick={handleChoiceA} >
-                  {selectedButton !== 'a' ? 'Select' : 'Selected'}
+                  {selectedButton !== 'a' ? 'Select' : 'SELECTED'}
                 </button>
               </div>
 
-              <div className="answer">
+              <div className={selectedButton !== 'b' ? 'answer' : 'answer selected'}>
                 {quiz.quiz.answers[1].text}
                 <button onClick={handleChoiceB} >
-                {selectedButton !== 'b' ? 'Select' : 'Selected'}
+                {selectedButton !== 'b' ? 'Select' : 'SELECTED'}
                 </button>
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button id="submitAnswerBtn" disabled={selectedButton === 'a' || selectedButton === 'b' ? false : true} onClick={handleSubmit}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
@@ -63,4 +69,5 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchQuiz, selectAnswer})(Quiz);
+
+export default connect(mapStateToProps, {fetchQuiz, selectAnswer, postAnswer, setMessage})(Quiz);

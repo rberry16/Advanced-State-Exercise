@@ -1,4 +1,4 @@
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_INFO_MESSAGE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER } from "./action-types"
+import { CHANGE_FALSE, CHANGE_QUESTION, CHANGE_TRUE, SET_SUCCESS_MESSAGE, MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_INFO_MESSAGE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER } from "./action-types"
 import axios from "axios"
 
 // ❗ You don't need to add extra action creators to achieve MVP
@@ -20,7 +20,18 @@ export function setMessage() {
 
 export function setQuiz() { }
 
-export function inputChange() { }
+
+export function changeQuestion(text) {
+  return ({type: CHANGE_QUESTION, payload: text})
+}
+
+export function changeTrue(text) {
+  return ({type: CHANGE_TRUE, payload: text})
+}
+
+export function changeFalse(text) {
+  return ({type: CHANGE_FALSE, payload: text})
+}
 
 export function resetForm() { }
 
@@ -48,8 +59,12 @@ export function postAnswer(obj) {
     // - Dispatch the fetching of the next quiz
   }
 }
-export function postQuiz() {
+export function postQuiz(obj) {
   return function (dispatch) {
+    axios.post('http://localhost:9000/api/quiz/new', obj)
+      .then(
+        dispatch({type: SET_SUCCESS_MESSAGE, payload: obj.question_text})
+      )
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form

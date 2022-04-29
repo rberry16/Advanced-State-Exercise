@@ -5,11 +5,17 @@ import { fetchQuiz, selectAnswer, postAnswer, setMessage} from '../state/action-
 
 const Quiz = (props) => {
   const {quiz, selectedAnswer, fetchQuiz, selectAnswer, postAnswer} = props;
+  let x = 1
 
+  console.log(x)
 
   useEffect(() => {
-    fetchQuiz();
+    if (quiz === null) {
+      fetchQuiz();
+    }
   }, [])
+  
+  
 
   const [selectedButton, setSelectedButton] = useState('c')
 

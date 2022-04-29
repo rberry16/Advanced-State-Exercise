@@ -51,7 +51,8 @@ export function postAnswer(obj) {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/answer', obj)
       .then(res => {
-        dispatch({type: SET_INFO_MESSAGE, payload: res})
+        dispatch({type: SET_INFO_MESSAGE, payload: res.data.message})
+        console.log(res.data)
       })
     // On successful POST:
     // - Dispatch an action to reset the selected answer state
@@ -62,9 +63,10 @@ export function postAnswer(obj) {
 export function postQuiz(obj) {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/new', obj)
-      .then(
+      .then(res => {
         dispatch({type: SET_SUCCESS_MESSAGE, payload: obj.question_text})
-      )
+        console.log(res)
+      })
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state
     // - Dispatch the resetting of the form

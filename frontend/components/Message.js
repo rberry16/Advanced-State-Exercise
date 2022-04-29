@@ -9,9 +9,10 @@ const Message = (props) => {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
     ...state,
-  infoMessage: state.infoMessage.message,
+  infoMessage: state.infoMessage,
   successMessage: state.form.successMessage
   }
 }

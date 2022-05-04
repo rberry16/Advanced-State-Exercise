@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 
 
 
 const Message = (props) => {
-  const {infoMessage, successMessage} = props;
-  return <div id="message">{infoMessage}</div>
+  const {infoMessage, successMessage} = props
+
+  return <div id="message">{successMessage}</div>,
+         <div id='message'>{infoMessage}</div>
+
 }
 
 const mapStateToProps = (state) => {

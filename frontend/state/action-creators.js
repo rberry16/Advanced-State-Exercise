@@ -52,6 +52,7 @@ export function postAnswer(obj) {
     axios.post('http://localhost:9000/api/quiz/answer', obj)
       .then(res => {
         dispatch({type: SET_INFO_MESSAGE, payload: res.data.message})
+        dispatch(fetchQuiz());
         console.log(res.data)
       })
     // On successful POST:

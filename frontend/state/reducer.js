@@ -55,16 +55,20 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
   return state
 }
 
-const initialMessageState = 'this is the name of the message'
+const initialMessageState = ''
 function infoMessage(state = initialMessageState, action) {
   switch(action.type){
     case(SET_INFO_MESSAGE): {
-      const newMessage = action.payload;
+      const newMessage = `${action.payload}`;
       return  newMessage
     }
     case(SET_SUCCESS_MESSAGE): {
       const successMessage = `Congrats: "${action.payload}" is a great question!`;
       return successMessage
+    }
+    case(SET_SELECTED_ANSWER): {
+      const defaultMessage = '';
+      return defaultMessage;
     }
   }
   return state
@@ -97,11 +101,13 @@ function form(state = initialFormState, action) {
       }
     }
     case(SET_SUCCESS_MESSAGE): {
+      const successMessage = `Congrats: "${action.payload}" is a great question!`;
       return {
         ...state,
         newQuestion: '',
         newTrueAnswer: '',
-        newFalseAnswer: ''
+        newFalseAnswer: '',
+        successMessage: `Congrats: "${action.payload}" is a great question!`
       }
     }
   }

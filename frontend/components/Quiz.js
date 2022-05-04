@@ -5,9 +5,6 @@ import { fetchQuiz, selectAnswer, postAnswer, setMessage} from '../state/action-
 
 const Quiz = (props) => {
   const {quiz, selectedAnswer, fetchQuiz, selectAnswer, postAnswer} = props;
-  let x = 1
-
-  console.log(x)
 
   useEffect(() => {
     if (quiz === null) {
@@ -21,7 +18,7 @@ const Quiz = (props) => {
 
   const handleSubmit = () => {
     postAnswer(selectedAnswer);
-    fetchQuiz();
+    
     setSelectedButton('c')
   }
 
@@ -44,16 +41,16 @@ const Quiz = (props) => {
             <h2>{quiz.quiz.question}</h2>
 
             <div id="quizAnswers">
-            <div className={selectedButton !== 'a' ? 'answer' : 'answer selected'}>
+            <div onClick={handleChoiceA}  className={selectedButton !== 'a' ? 'answer' : 'answer selected'}>
                 {quiz.quiz.answers[0].text}
-                <button onClick={handleChoiceA} >
+                <button >
                   {selectedButton !== 'a' ? 'Select' : 'SELECTED'}
                 </button>
               </div>
 
-              <div className={selectedButton !== 'b' ? 'answer' : 'answer selected'}>
+              <div onClick={handleChoiceB} className={selectedButton !== 'b' ? 'answer' : 'answer selected'}>
                 {quiz.quiz.answers[1].text}
-                <button onClick={handleChoiceB} >
+                <button  >
                 {selectedButton !== 'b' ? 'Select' : 'SELECTED'}
                 </button>
               </div>

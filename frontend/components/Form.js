@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import { changeQuestion, changeTrue, changeFalse, postQuiz } from '../state/action-creators'
 
 
@@ -10,7 +9,7 @@ import { changeQuestion, changeTrue, changeFalse, postQuiz } from '../state/acti
 //   })
 
 export function Form(props) {
-  const {newQuestion, newTrueAnswer, newFalseAnswer, successMessage, changeQuestion, changeTrue, changeFalse, postQuiz} = props;
+  const {newQuestion, newTrueAnswer, newFalseAnswer, changeQuestion, changeTrue, changeFalse, postQuiz} = props;
 
   const onChangeQ = evt => {
     evt.preventDefault();
